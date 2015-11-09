@@ -4,7 +4,10 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NoteHandler {
 
@@ -45,19 +48,32 @@ public class NoteHandler {
     return fullPath + "/" + audioFilenames.get(index);
   }
 
-  // TODO: This method doesn't take into account when intermediate sequence numbered
-  // files are deleted. ie. 1, 2, 5.
+  // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix() {
 
     // get an up to date list of audio files
     // before calculating the correct list size
     loadAudioFilenames();
-
-    int size = audioFilenames.size() + 1; // first file suffix is '1'
-    String result = "" + size;
-    return pad2Digits(result);
+    return pad2Digits(""+(findMaxSuffix(audioFilenames) + 1));
   }
 
+  // Searches through a list of strings, pulling out the suffix numbers
+  // Returns the maximum value found or 0 if the list is empty.
+  private int findMaxSuffix(List<String> list) {
+    ArrayList<Integer> suffices = new ArrayList<>();
+    String pattern = "^VOICE(\\d{2}).*";
+    Pattern r = Pattern.compile(pattern);
+
+    for (String s : audioFilenames) {
+      Matcher m = r.matcher(s);
+      if (m.find()) {
+        suffices.add(Integer.parseInt(m.group(1)));
+      }
+    }
+    return suffices.isEmpty() ? 0 : Collections.max(suffices);
+  }
+
+  // Adding a leading 0 if number is only one digit
   String pad2Digits(String s) {
     if (s.length() < 2) {
       return "0" + s;
@@ -91,6 +107,5 @@ public class NoteHandler {
     File audioFile = new File(getMediaFilename(position));
     audioFile.delete();
     audioFilenames.remove(position);
-//    adapter.notifyDataSetChanged();
   }
 }
