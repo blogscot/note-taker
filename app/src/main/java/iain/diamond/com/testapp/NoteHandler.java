@@ -64,7 +64,7 @@ public class NoteHandler {
     String pattern = "^VOICE(\\d{2}).*";
     Pattern r = Pattern.compile(pattern);
 
-    for (String s : audioFilenames) {
+    for (String s : list) {
       Matcher m = r.matcher(s);
       if (m.find()) {
         suffices.add(Integer.parseInt(m.group(1)));
@@ -73,7 +73,7 @@ public class NoteHandler {
     return suffices.isEmpty() ? 0 : Collections.max(suffices);
   }
 
-  // Adding a leading 0 if number is only one digit
+  // Adds a leading 0 if number is only one digit
   String pad2Digits(String s) {
     if (s.length() < 2) {
       return "0" + s;
