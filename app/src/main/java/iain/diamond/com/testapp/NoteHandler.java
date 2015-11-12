@@ -50,27 +50,24 @@ public class NoteHandler {
 
   // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix() {
-
-    // get an up to date list of audio files
-    // before calculating the correct list size
-    loadAudioFilenames();
+    updateAudioFilenames();
     return pad2Digits(""+(findMaxSuffix(audioFilenames) + 1));
   }
 
   // Searches through a list of strings, pulling out the suffix numbers
   // Returns the maximum value found or 0 if the list is empty.
   private int findMaxSuffix(List<String> list) {
-    ArrayList<Integer> suffices = new ArrayList<>();
+    ArrayList<Integer> suffixes = new ArrayList<>();
     String pattern = "^VOICE(\\d{2}).*";
     Pattern r = Pattern.compile(pattern);
 
     for (String s : list) {
       Matcher m = r.matcher(s);
       if (m.find()) {
-        suffices.add(Integer.parseInt(m.group(1)));
+        suffixes.add(Integer.parseInt(m.group(1)));
       }
     }
-    return suffices.isEmpty() ? 0 : Collections.max(suffices);
+    return suffixes.isEmpty() ? 0 : Collections.max(suffixes);
   }
 
   // Adds a leading 0 if number is only one digit
@@ -83,7 +80,7 @@ public class NoteHandler {
 
   // Updates and returns a reference to the audio file list
   public final List<String> getAudioFilenames() {
-    loadAudioFilenames();
+    updateAudioFilenames();
     // The last added audio file appears at the top of the list
     reverseSort(audioFilenames);
     return audioFilenames;
@@ -97,8 +94,8 @@ public class NoteHandler {
     return list;
   }
 
-  // Returns a list of audio filenames
-  private void loadAudioFilenames() {
+  // Updates the list of audio filenames
+  private void updateAudioFilenames() {
     File[] files = internalStorage.listFiles();
 
     audioFilenames.clear();
