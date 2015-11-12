@@ -84,7 +84,17 @@ public class NoteHandler {
   // Updates and returns a reference to the audio file list
   public final List<String> getAudioFilenames() {
     loadAudioFilenames();
+    // The last added audio file appears at the top of the list
+    reverseSort(audioFilenames);
     return audioFilenames;
+  }
+
+  // Takes a reference to an unsorted list
+  // returns the same list sorted then reversed
+  private List<String> reverseSort(List<String> list) {
+    Collections.sort(list);
+    Collections.reverse(list);
+    return list;
   }
 
   // Returns a list of audio filenames
@@ -105,7 +115,8 @@ public class NoteHandler {
     Log.d("removeFileFromList", mf);
 
     File audioFile = new File(getMediaFilename(position));
-    audioFile.delete();
-    audioFilenames.remove(position);
+    if (audioFile.delete()) {
+      audioFilenames.remove(position);
+    }
   }
 }
