@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private final String TAG = this.getClass().getSimpleName();
 
-  Button recordButton, audioDir;
+  Button writeButton, recordButton, audioDir;
 
   boolean isPlaying = false;
 
@@ -43,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     fileStorage = getFilesDir();
     noteHandler = new NoteHandler(getFilesDir());
 
+    writeButton = (Button) findViewById(R.id.buttonWrite);
     recordButton = (Button) findViewById(R.id.buttonRecord);
     audioDir = (Button) findViewById(R.id.buttonList);
 
+    writeButton.setOnClickListener(this);
     recordButton.setOnClickListener(this);
     audioDir.setOnClickListener(this);
 
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
           Toast.makeText(this, "Audio file recorded", Toast.LENGTH_LONG).show();
         }
         isPlaying = !isPlaying;
+        break;
+      case R.id.buttonWrite:
+        startActivity(new Intent(this, TextFilesActivity.class));
         break;
       case R.id.buttonList:
         startActivity(new Intent(this, AudioFilesActivity.class));
