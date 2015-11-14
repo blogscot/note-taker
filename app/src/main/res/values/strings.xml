@@ -7,6 +7,7 @@
     <string name="main_logo_description">Pencil Logo</string>
     <string name="shoot_button">shoot</string>
     <string name="draw_button">draw</string>
-    <string name="title_activity_audio_files">Audio Recordings</string>
+    <string name="title_activity_audio_files">Audio Notes</string>
     <string name="title_activity_text_files">Text Note</string>
+    <string name="title_activity_text_files_list">Text Notes</string>
 </resources>

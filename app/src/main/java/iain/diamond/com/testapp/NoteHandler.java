@@ -16,6 +16,7 @@ public class NoteHandler {
   private File internalStorage;
   private String fullPath;
   private List<String> audioFilenames = new ArrayList<>();
+  private List<String> textNotes = new ArrayList<>();
 
   // The Note Handler is initialised with the internal storage location
   // accessible by the current activity.
@@ -38,8 +39,7 @@ public class NoteHandler {
   // Index numbers range 1, 2, 3 ...
   public String getMediaFilename(int index) {
 
-    if (index < 0 || index > audioFilenames.size())
-    {
+    if (index < 0 || index > audioFilenames.size()) {
       // If index out of bound return first entry
       index = 0;
       Log.e(TAG, "Audio File index out of bounds");
@@ -51,7 +51,7 @@ public class NoteHandler {
   // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix() {
     updateAudioFilenames();
-    return pad2Digits(""+(findMaxSuffix(audioFilenames) + 1));
+    return pad2Digits("" + (findMaxSuffix(audioFilenames) + 1));
   }
 
   // Searches through a list of strings, pulling out the suffix numbers
@@ -86,6 +86,11 @@ public class NoteHandler {
     return audioFilenames;
   }
 
+  public final List<String> getTextNotes() {
+    updateTextFilenames();
+    return textNotes;
+  }
+
   // Takes a reference to an unsorted list
   // returns the same list sorted then reversed
   private List<String> reverseSort(List<String> list) {
@@ -105,7 +110,19 @@ public class NoteHandler {
         audioFilenames.add(filename);
       }
     }
-   }
+  }
+
+  private void updateTextFilenames() {
+    File[] files = internalStorage.listFiles();
+
+    textNotes.clear();
+    for (File f : files) {
+      String filename = f.getName();
+      if (filename.endsWith(".txt")) {
+        textNotes.add(filename);
+      }
+    }
+  }
 
   public void removeFileFromList(int position) {
     String mf = getMediaFilename(position);

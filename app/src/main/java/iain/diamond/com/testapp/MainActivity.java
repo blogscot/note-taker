@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isPlaying = !isPlaying;
         break;
       case R.id.buttonWrite:
-        startActivity(new Intent(this, TextFilesActivity.class));
+        startActivity(new Intent(this, TextFilesListActivity.class));
         break;
       case R.id.buttonList:
         startActivity(new Intent(this, AudioFilesActivity.class));
