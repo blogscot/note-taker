@@ -23,7 +23,8 @@
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/loadButton"
         android:scrollIndicators="right"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:gravity="top"/>
 
     <Button
         android:layout_width="wrap_content"

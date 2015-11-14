@@ -99,12 +99,13 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     Thread saveFile = new Thread(new Runnable() {
       @Override
       public void run() {
-        String text = "Tim Cook, Apple’s chief executive, said that any attempt to weaken encryption could have “very dire consequences” for consumers by making their data less secure.\n\n\nLater today, MPs on the science and technology committee will explore the tech issues arising from the draft Investigatory Powers Bill during a one-off evidence session.\n\nFinally, Cook touched on the subject of encryption, a hot topic due to an ongoing case in which the U.S. Justice Department wants Apple to decrypt a locked iPhone.\n\nThe bill also targets encrypted messaging services such as WhatsApp and Apple’s iMessenger.\n\n“We consider very strongly in finish-to-finish encryption and no again doorways”, Cook stated throughout a go to Britain that comes after plans for a new Investigatory Powers Bill have been outlined this month.\n\nHe said: “We don’t think people want us to read their messages”. We don’t feel we have the right to read their emails, he added. Everybody wants to crack down on terrorists. “Opening a back door can have very dire consequences”, Cook argued. “In times like these when fear-driven bills compromise the right to privacy, we can look to security tools, such as encryption, to defend online communications from unwanted access”.\n\nApple CEO Tim Cook has a lot to say about the future, most of it about how Apple will be smashing the competition.\n\n‘Encryption is widely available.\n\nCook also signaled however that there would be an outcome which he and others would find favorable, predicting: “When the public gets engaged, the press gets engaged deeply, it will become clear to people what needs to occur”.\n\nCook’s comments have been echoed by other prominent figures in the technology industry including the United Nations’ special rapporteur on privacy, Joseph Cannataci. That, of course, doesn’t require FDA accreditation, and this seems to be the first time Apple has explicitly said there are no intentions to pursue it.\n\n \n\n“Just do a media analysis, ladies and gentlemen, do a media analysis of the way the British establishment is trotting out news about the law and the need for the law and ask yourselves the question ‘If this is not orchestrated then what is?'” During the interview, Cook highlighted the health benefits of the Apple Watch, which let customers monitor activity and heart rate, telling the story of a senior high school football player whose Watch saved his life.";
+        String text = ((EditText) findViewById(R.id.editText)).getText().toString();
 
         try {
           FileOutputStream fos = new FileOutputStream(fullPath);
           BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-          fos.write(text.getBytes());
+          bw.write(text);
+          bw.close();
           fos.close();
         } catch (IOException e) {
           e.printStackTrace();
