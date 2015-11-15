@@ -48,6 +48,11 @@ public class NoteHandler {
     return fullPath + "/" + audioFilenames.get(index);
   }
 
+  // Returns the full text note filename at the given index
+  public String getTextNoteFilename(int index) {
+    return fullPath + "/" + textNotes.get(index);
+  }
+
   // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix() {
     updateAudioFilenames();

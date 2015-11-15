@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -15,8 +16,9 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class TextFilesListActivity extends AppCompatActivity implements View.OnClickListener {
+public class TextFilesListActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+  public static final java.lang.String FILENAME_KEY = "TEXTNOTE_KEY";
   private ListView listView;
   private Button addButton;
   private NoteHandler noteHandler;
@@ -39,6 +41,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     listView.setAdapter(myAdapter);
 
     addButton.setOnClickListener(this);
+    listView.setOnItemClickListener(this);
   }
 
   @Override
@@ -48,5 +51,13 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
         startActivity(new Intent(this, TextFilesActivity.class));
         break;
     }
+  }
+
+  @Override
+  public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+    String filename = noteHandler.getTextNoteFilename(position);
+    Intent intent = new Intent(this, TextFilesActivity.class);
+    intent.putExtra(FILENAME_KEY, filename);
+    startActivity(intent);
   }
 }
