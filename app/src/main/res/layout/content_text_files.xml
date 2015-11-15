@@ -21,18 +21,10 @@
         android:id="@+id/editText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/loadButton"
+        android:layout_above="@+id/saveButton"
         android:scrollIndicators="right"
         android:layout_alignParentTop="true"
         android:gravity="top"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load"
-        android:id="@+id/loadButton"
-        android:layout_alignTop="@+id/saveButton"
-        android:layout_alignParentStart="true"/>
 
     <Button
         android:layout_width="wrap_content"

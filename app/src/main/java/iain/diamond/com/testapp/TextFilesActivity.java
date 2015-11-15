@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,15 +31,12 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-//    File internalStorage = getFilesDir();
     noteHandler = new NoteHandler(getFilesDir());
 
     final EditText editText = (EditText) findViewById(R.id.editText);
     Button saveButton = (Button) findViewById(R.id.saveButton);
-    Button loadButton = (Button) findViewById(R.id.loadButton);
 
     saveButton.setOnClickListener(this);
-    loadButton.setOnClickListener(this);
 
     handler = new android.os.Handler() {
       @Override
@@ -55,10 +50,8 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     if (bundle != null) {
       filename = bundle.getString(TextFilesListActivity.FILENAME_KEY);
       loadTextFile(filename);
-      Log.d("FILENAME_KEY bundle: ", filename);
     } else {
       filename = noteHandler.getNextTextNoteFilename();
-      Log.d("FILENAME_KEY default: ", filename);
     }
   }
 
@@ -69,10 +62,6 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
       case R.id.saveButton:
         saveTextFile(filename);
         Toast.makeText(getBaseContext(), "File saved", Toast.LENGTH_LONG).show();
-        break;
-      case R.id.loadButton:
-        loadTextFile(filename);
-        Toast.makeText(getBaseContext(), "File loaded", Toast.LENGTH_LONG).show();
         break;
     }
   }
