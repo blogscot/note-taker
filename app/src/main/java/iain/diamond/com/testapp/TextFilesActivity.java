@@ -24,6 +24,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
   private static android.os.Handler handler;
   private String filename;
   private final static String BUNDLE_KEY = "file-text";
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,8 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    File internalStorage = getFilesDir();
+//    File internalStorage = getFilesDir();
+    noteHandler = new NoteHandler(getFilesDir());
 
     final EditText editText = (EditText) findViewById(R.id.editText);
     Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -55,8 +57,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
       loadTextFile(filename);
       Log.d("FILENAME_KEY bundle: ", filename);
     } else {
-      // TODO get next note index from noteHandler
-      filename = internalStorage + "/" + "NOTE1.txt";
+      filename = noteHandler.getNextTextNoteFilename();
       Log.d("FILENAME_KEY default: ", filename);
     }
   }

@@ -32,7 +32,11 @@ public class NoteHandler {
   // Generates the next audio filename according to the current
   // list size. The filename are suffixed 01, 02, etc.
   public String getNextAudioFilename() {
-    return fullPath + "/" + "VOICE" + getNextFileSuffix() + ".3gp";
+    return fullPath + "/" + "VOICE" + getNextFileSuffix(NoteFormat.Audio) + ".3gp";
+  }
+
+  public String getNextTextNoteFilename() {
+    return fullPath + "/" + "NOTE" + getNextFileSuffix(NoteFormat.Text) + ".txt";
   }
 
   // Returns the full path audio filename at the given index
@@ -54,18 +58,42 @@ public class NoteHandler {
   }
 
   // Returns the next suffix in the sequence 01, 02, 03 etc.
-  private String getNextFileSuffix() {
-    updateAudioFilenames();
-    return pad2Digits("" + (findMaxSuffix(audioFilenames) + 1));
+  private String getNextFileSuffix(NoteFormat format) {
+    switch (format) {
+      case Audio:
+          updateNotes(NoteFormat.Audio);
+          return pad2Digits("" + (findMaxSuffix(NoteFormat.Audio) + 1));
+      case Text:
+        updateNotes(NoteFormat.Text);
+        return pad2Digits("" + (findMaxSuffix(NoteFormat.Audio.Text) + 1));
+      default:
+        Log.e("getNextFileSuffix: ", format.toString());
+        return "1";
+    }
   }
 
   // Searches through a list of strings, pulling out the suffix numbers
   // Returns the maximum value found or 0 if the list is empty.
-  private int findMaxSuffix(List<String> list) {
+  private int findMaxSuffix(NoteFormat format) {
+    List<String> list;
     ArrayList<Integer> suffixes = new ArrayList<>();
-    String pattern = "^VOICE(\\d{2}).*";
-    Pattern r = Pattern.compile(pattern);
+    String pattern;
+    Pattern r;
 
+    switch (format) {
+      case Audio:
+        list = audioFilenames;
+        pattern = "^VOICE(\\d{2}).*";
+        break;
+      case Text:
+        pattern = "^NOTE(\\d{2}).*";
+        list = textNotes;
+        break;
+      default:
+        throw new IllegalArgumentException("findMaxSuffix: Unknown note format");
+    }
+
+    r = Pattern.compile(pattern);
     for (String s : list) {
       Matcher m = r.matcher(s);
       if (m.find()) {
@@ -85,14 +113,15 @@ public class NoteHandler {
 
   // Updates and returns a reference to the audio file list
   public final List<String> getAudioFilenames() {
-    updateAudioFilenames();
+    updateNotes(NoteFormat.Audio);
     // The last added audio file appears at the top of the list
     reverseSort(audioFilenames);
     return audioFilenames;
   }
 
   public final List<String> getTextNotes() {
-    updateTextFilenames();
+    updateNotes(NoteFormat.Text);
+    reverseSort(textNotes);
     return textNotes;
   }
 
@@ -105,26 +134,29 @@ public class NoteHandler {
   }
 
   // Updates the list of audio filenames
-  private void updateAudioFilenames() {
+  private void updateNotes(NoteFormat format) {
+    String extension;
+    List<String> noteList;
     File[] files = internalStorage.listFiles();
 
-    audioFilenames.clear();
-    for (File f : files) {
-      String filename = f.getName();
-      if (filename.endsWith(".3gp")) {
-        audioFilenames.add(filename);
-      }
+    switch (format) {
+      case Audio:
+        extension = ".3gp";
+        noteList = audioFilenames;
+        break;
+      case Text:
+        extension = ".txt";
+        noteList = textNotes;
+        break;
+      default:
+        throw new IllegalArgumentException("Invalid note format.");
     }
-  }
 
-  private void updateTextFilenames() {
-    File[] files = internalStorage.listFiles();
-
-    textNotes.clear();
+    noteList.clear();
     for (File f : files) {
       String filename = f.getName();
-      if (filename.endsWith(".txt")) {
-        textNotes.add(filename);
+      if (filename.endsWith(extension)) {
+        noteList.add(filename);
       }
     }
   }
