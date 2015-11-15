@@ -161,13 +161,23 @@ public class NoteHandler {
     }
   }
 
-  public void removeFileFromList(int position) {
+  public void removeAudioFileFromList(int position) {
     String mf = getMediaFilename(position);
-    Log.d("removeFileFromList", mf);
+    Log.d("removeAudioFileFromList", mf);
 
     File audioFile = new File(getMediaFilename(position));
     if (audioFile.delete()) {
       audioFilenames.remove(position);
+    }
+  }
+
+  public void removeTextNoteFromList(int position) {
+    String filename = getTextNoteFilename(position);
+    Log.d("removeTextNoteFromList", filename);
+
+    File textNoteFilename = new File(getTextNoteFilename(position));
+    if (textNoteFilename.delete()) {
+      textNotes.remove(position);
     }
   }
 }

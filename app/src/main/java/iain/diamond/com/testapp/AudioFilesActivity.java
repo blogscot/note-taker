@@ -85,7 +85,7 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    noteHandler.removeFileFromList(position);
+    noteHandler.removeAudioFileFromList(position);
     myAdapter.notifyDataSetChanged();
     return true;
   }

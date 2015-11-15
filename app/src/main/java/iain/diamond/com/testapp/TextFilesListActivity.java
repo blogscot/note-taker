@@ -16,12 +16,13 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class TextFilesListActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class TextFilesListActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
   public static final java.lang.String FILENAME_KEY = "TEXTNOTE_KEY";
   private ListView listView;
   private Button addButton;
   private NoteHandler noteHandler;
+  private notesAdapter myAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,12 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     addButton = (Button) findViewById(R.id.addButton);
 
     List<String> textNotes = noteHandler.getTextNotes();
-    ListAdapter myAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-            android.R.id.text1, textNotes);
+    myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, textNotes);
     listView.setAdapter(myAdapter);
 
     addButton.setOnClickListener(this);
     listView.setOnItemClickListener(this);
+    listView.setOnItemLongClickListener(this);
   }
 
   @Override
@@ -59,5 +60,12 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     Intent intent = new Intent(this, TextFilesActivity.class);
     intent.putExtra(FILENAME_KEY, filename);
     startActivity(intent);
+  }
+
+  @Override
+  public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+    noteHandler.removeTextNoteFromList(position);
+    myAdapter.notifyDataSetChanged();
+    return true;
   }
 }
