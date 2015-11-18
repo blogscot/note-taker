@@ -40,6 +40,10 @@ public class NoteHandler {
     return fullPath + "/" + "NOTE" + getNextFileSuffix(NoteFormat.Text) + ".txt";
   }
 
+  public String getNextCameraNoteFilename() {
+    return fullPath + "/" + "IMAGE" + getNextFileSuffix(NoteFormat.Photo) + ".png";
+  }
+
   // Returns the full path audio filename at the given index
   // Index numbers range 1, 2, 3 ...
   public String getMediaFilename(NoteFormat format, int index) {
@@ -52,29 +56,17 @@ public class NoteHandler {
       case Text:
         list = textNotes;
         break;
+      case Photo:
+        list = cameraNotes;
+        break;
     }
     return list != null ? fullPath + "/" + list.get(index) : "";
   }
 
-  // Returns the full text note filename at the given index
-//  public String getTextNoteFilename(int index) {
-//    return fullPath + "/" + textNotes.get(index);
-//  }
-
-
   // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix(NoteFormat format) {
-    switch (format) {
-      case Audio:
-          updateNotes(NoteFormat.Audio);
-          return pad2Digits("" + (findMaxSuffix(NoteFormat.Audio) + 1));
-      case Text:
-        updateNotes(NoteFormat.Text);
-        return pad2Digits("" + (findMaxSuffix(NoteFormat.Audio.Text) + 1));
-      default:
-        Log.e("getNextFileSuffix: ", format.toString());
-        return "1";
-    }
+    updateNotes(format);
+    return pad2Digits("" + (findMaxSuffix(format) + 1));
   }
 
   // Searches through a list of strings, pulling out the suffix numbers
@@ -93,6 +85,10 @@ public class NoteHandler {
       case Text:
         pattern = "^NOTE(\\d{2}).*";
         list = textNotes;
+        break;
+      case Photo:
+        pattern = "^IMAGE(\\d{2}).*";
+        list = cameraNotes;
         break;
       default:
         throw new IllegalArgumentException("findMaxSuffix: Unknown note format");
@@ -152,6 +148,10 @@ public class NoteHandler {
       case Text:
         extension = ".txt";
         noteList = textNotes;
+        break;
+      case Photo:
+        extension = ".png";
+        noteList = cameraNotes;
         break;
       default:
         throw new IllegalArgumentException("Invalid note format.");
