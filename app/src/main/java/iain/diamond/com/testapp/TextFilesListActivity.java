@@ -51,7 +51,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    String filename = noteHandler.getTextNoteFilename(position);
+    String filename = noteHandler.getMediaFilename(NoteFormat.Text, position);
     Intent intent = new Intent(this, TextFilesActivity.class);
     intent.putExtra(FILENAME_KEY, filename);
     startActivity(intent);

@@ -53,14 +53,14 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    Log.d(TAG, noteHandler.getMediaFilename(position));
+    Log.d(TAG, noteHandler.getMediaFilename(NoteFormat.Audio, position));
     startPlaying(position);
   }
 
   private void startPlaying(int index) {
     try {
       mediaPlayer = new MediaPlayer();
-      mediaFilename = noteHandler.getMediaFilename(index);
+      mediaFilename = noteHandler.getMediaFilename(NoteFormat.Audio, index);
       mediaPlayer.setDataSource(mediaFilename);
       mediaPlayer.setOnCompletionListener(this);
 

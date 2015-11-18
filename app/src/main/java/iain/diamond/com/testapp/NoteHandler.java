@@ -17,6 +17,7 @@ public class NoteHandler {
   private String fullPath;
   private List<String> audioFilenames = new ArrayList<>();
   private List<String> textNotes = new ArrayList<>();
+  private List<String> cameraNotes = new ArrayList<>();
 
   // The Note Handler is initialised with the internal storage location
   // accessible by the current activity.
@@ -41,21 +42,25 @@ public class NoteHandler {
 
   // Returns the full path audio filename at the given index
   // Index numbers range 1, 2, 3 ...
-  public String getMediaFilename(int index) {
+  public String getMediaFilename(NoteFormat format, int index) {
+    List<String> list = null;
 
-    if (index < 0 || index > audioFilenames.size()) {
-      // If index out of bound return first entry
-      index = 0;
-      Log.e(TAG, "Audio File index out of bounds");
+    switch (format) {
+      case Audio:
+        list = audioFilenames;
+        break;
+      case Text:
+        list = textNotes;
+        break;
     }
-
-    return fullPath + "/" + audioFilenames.get(index);
+    return list != null ? fullPath + "/" + list.get(index) : "";
   }
 
   // Returns the full text note filename at the given index
-  public String getTextNoteFilename(int index) {
-    return fullPath + "/" + textNotes.get(index);
-  }
+//  public String getTextNoteFilename(int index) {
+//    return fullPath + "/" + textNotes.get(index);
+//  }
+
 
   // Returns the next suffix in the sequence 01, 02, 03 etc.
   private String getNextFileSuffix(NoteFormat format) {
@@ -162,20 +167,20 @@ public class NoteHandler {
   }
 
   public void removeAudioFileFromList(int position) {
-    String mf = getMediaFilename(position);
+    String mf = getMediaFilename(NoteFormat.Audio, position);
     Log.d("removeAudioFileFromList", mf);
 
-    File audioFile = new File(getMediaFilename(position));
+    File audioFile = new File(getMediaFilename(NoteFormat.Audio, position));
     if (audioFile.delete()) {
       audioFilenames.remove(position);
     }
   }
 
   public void removeTextNoteFromList(int position) {
-    String filename = getTextNoteFilename(position);
+    String filename = getMediaFilename(NoteFormat.Text, position);
     Log.d("removeTextNoteFromList", filename);
 
-    File textNoteFilename = new File(getTextNoteFilename(position));
+    File textNoteFilename = new File(getMediaFilename(NoteFormat.Text, position));
     if (textNoteFilename.delete()) {
       textNotes.remove(position);
     }
