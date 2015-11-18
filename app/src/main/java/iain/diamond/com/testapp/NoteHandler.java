@@ -17,7 +17,7 @@ public class NoteHandler {
   private String fullPath;
   private List<String> audioFilenames = new ArrayList<>();
   private List<String> textNotes = new ArrayList<>();
-  private List<String> cameraNotes = new ArrayList<>();
+  private List<String> photoNotes = new ArrayList<>();
 
   // The Note Handler is initialised with the internal storage location
   // accessible by the current activity.
@@ -57,10 +57,14 @@ public class NoteHandler {
         list = textNotes;
         break;
       case Photo:
-        list = cameraNotes;
+        list = photoNotes;
         break;
     }
-    return list != null ? fullPath + "/" + list.get(index) : "";
+
+    if (list != null && index < list.size()) {
+      return fullPath + "/" + list.get(index);
+    }
+    return "";
   }
 
   // Returns the next suffix in the sequence 01, 02, 03 etc.
@@ -88,7 +92,7 @@ public class NoteHandler {
         break;
       case Photo:
         pattern = "^IMAGE(\\d{2}).*";
-        list = cameraNotes;
+        list = photoNotes;
         break;
       default:
         throw new IllegalArgumentException("findMaxSuffix: Unknown note format");
@@ -126,12 +130,22 @@ public class NoteHandler {
     return textNotes;
   }
 
+  public final List<String> getPhotoNotes() {
+    updateNotes(NoteFormat.Photo);
+    reverseSort(photoNotes);
+    return photoNotes;
+  }
+
   // Takes a reference to an unsorted list
   // returns the same list sorted then reversed
   private List<String> reverseSort(List<String> list) {
     Collections.sort(list);
     Collections.reverse(list);
     return list;
+  }
+
+  public void initialiseNotes(NoteFormat format) {
+    updateNotes(format);
   }
 
   // Updates the list of audio filenames
@@ -151,7 +165,7 @@ public class NoteHandler {
         break;
       case Photo:
         extension = ".png";
-        noteList = cameraNotes;
+        noteList = photoNotes;
         break;
       default:
         throw new IllegalArgumentException("Invalid note format.");
@@ -167,8 +181,8 @@ public class NoteHandler {
   }
 
   public void removeAudioFileFromList(int position) {
-    String mf = getMediaFilename(NoteFormat.Audio, position);
-    Log.d("removeAudioFileFromList", mf);
+//    String mf = getMediaFilename(NoteFormat.Audio, position);
+//    Log.d("removeAudioFileFromList", mf);
 
     File audioFile = new File(getMediaFilename(NoteFormat.Audio, position));
     if (audioFile.delete()) {
@@ -177,12 +191,19 @@ public class NoteHandler {
   }
 
   public void removeTextNoteFromList(int position) {
-    String filename = getMediaFilename(NoteFormat.Text, position);
-    Log.d("removeTextNoteFromList", filename);
+//    String filename = getMediaFilename(NoteFormat.Text, position);
+//    Log.d("removeTextNoteFromList", filename);
 
     File textNoteFilename = new File(getMediaFilename(NoteFormat.Text, position));
     if (textNoteFilename.delete()) {
       textNotes.remove(position);
+    }
+  }
+
+  public void removePhotoNoteFromList(int position) {
+    File noteFilename = new File(getMediaFilename(NoteFormat.Photo, position));
+    if (noteFilename.delete()) {
+      photoNotes.remove(position);
     }
   }
 }

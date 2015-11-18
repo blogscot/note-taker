@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
   private ImageView imageView;
   private Bitmap bitmap;
   private File internalStorage;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,26 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
     // image files are stored in the application's internal storage
     internalStorage = getFilesDir();
+    noteHandler = new NoteHandler(getFilesDir());
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
+    Button savePhotoButton = (Button) findViewById(R.id.savePhotoButton);
+    Button galleryButton = (Button) findViewById(R.id.galleryButton);
     imageView = (ImageView) findViewById(R.id.cameraImageView);
-    cameraButton.setOnClickListener(this);
 
-    bitmap = loadImage("/BITMAP1.png");
-    if (bitmap != null) {
-      imageView.setImageBitmap(bitmap);
+    cameraButton.setOnClickListener(this);
+    savePhotoButton.setOnClickListener(this);
+    galleryButton.setOnClickListener(this);
+
+    // display the first photo in list
+    noteHandler.initialiseNotes(NoteFormat.Photo);
+    String firstPhoto = noteHandler.getMediaFilename(NoteFormat.Photo, 0);
+    Log.d("First Photo :", firstPhoto);
+
+    if (!firstPhoto.equals("")) {
+      bitmap = loadImage(firstPhoto);
+      if (bitmap != null) {
+        imageView.setImageBitmap(bitmap);
+      }
     }
   }
 
@@ -56,6 +71,18 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);  // 0 Normal, 1 High quality
         startActivityForResult(intent, CAMERA_DATA);
+        break;
+      case R.id.savePhotoButton:
+        if (bitmap != null) {
+          String filename = noteHandler.getNextCameraNoteFilename();
+          Log.d("Saving Image at: ", filename);
+          storeImage(bitmap, filename);
+          Toast.makeText(this, "Image file saved", Toast.LENGTH_LONG).show();
+//          logImageFilenames();
+        }
+        break;
+      case R.id.galleryButton:
+        startActivity(new Intent(this, PhotosActivity.class));
         break;
     }
   }
@@ -69,20 +96,18 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         Bundle extras = data.getExtras();
         bitmap = (Bitmap) extras.get("data");
         imageView.setImageBitmap(bitmap);
-
-        storeImage(bitmap, "/BITMAP1.png");
-        logImageFilenames();  // some debugging code
       }
     }
   }
 
+  // Stores a image bitmap to the full path specified by filename
   private void storeImage(Bitmap image, String filename) {
 
     if (filename.equals("")) {
       throw new IllegalArgumentException("storeImage Error: Invalid filename given");
     }
 
-    File pictureFile = new File(internalStorage + filename);
+    File pictureFile = new File(filename);
     try {
       FileOutputStream fos = new FileOutputStream(pictureFile);
       image.compress(Bitmap.CompressFormat.PNG, 90, fos);
@@ -96,7 +121,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
   // loads a bitmap file, returns null if the path is invalid
   private Bitmap loadImage(String filename) {
-    return BitmapFactory.decodeFile(internalStorage + filename);
+    return BitmapFactory.decodeFile(filename);
   }
 
   // for debugging only
