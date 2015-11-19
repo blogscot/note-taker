@@ -11,5 +11,5 @@
     <string name="title_activity_text_files">Text Note</string>
     <string name="title_activity_text_files_list">Text Notes</string>
     <string name="title_activity_camera">Photo Note</string>
-    <string name="title_activity_photos">PhotosActivity</string>
+    <string name="title_activity_photos">Photo Notes</string>
 </resources>

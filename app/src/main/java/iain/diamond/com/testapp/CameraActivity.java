@@ -42,12 +42,10 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     internalStorage = getFilesDir();
     noteHandler = new NoteHandler(getFilesDir());
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
-    Button savePhotoButton = (Button) findViewById(R.id.savePhotoButton);
     Button galleryButton = (Button) findViewById(R.id.galleryButton);
     imageView = (ImageView) findViewById(R.id.cameraImageView);
 
     cameraButton.setOnClickListener(this);
-    savePhotoButton.setOnClickListener(this);
     galleryButton.setOnClickListener(this);
 
     // display the first photo in list
@@ -72,15 +70,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);  // 0 Normal, 1 High quality
         startActivityForResult(intent, CAMERA_DATA);
         break;
-      case R.id.savePhotoButton:
-        if (bitmap != null) {
-          String filename = noteHandler.getNextCameraNoteFilename();
-          Log.d("Saving Image at: ", filename);
-          storeImage(bitmap, filename);
-          Toast.makeText(this, "Image file saved", Toast.LENGTH_LONG).show();
-//          logImageFilenames();
-        }
-        break;
       case R.id.galleryButton:
         startActivity(new Intent(this, PhotosActivity.class));
         break;
@@ -96,6 +85,9 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         Bundle extras = data.getExtras();
         bitmap = (Bitmap) extras.get("data");
         imageView.setImageBitmap(bitmap);
+
+        storeImage(bitmap, noteHandler.getNextCameraNoteFilename());
+        Toast.makeText(this, "Image file saved", Toast.LENGTH_LONG).show();
       }
     }
   }
