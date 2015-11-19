@@ -5,14 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -48,13 +45,13 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     cameraButton.setOnClickListener(this);
     galleryButton.setOnClickListener(this);
 
-    // display the first photo in list
+    // display the most recent photo
     noteHandler.initialiseNotes(NoteFormat.Photo);
-    String firstPhoto = noteHandler.getMediaFilename(NoteFormat.Photo, 0);
-    Log.d("First Photo :", firstPhoto);
+    String latestPhoto = noteHandler.getLatestPhotoNote();
+    Log.d("Most recent photo :", latestPhoto);
 
-    if (!firstPhoto.equals("")) {
-      bitmap = loadImage(firstPhoto);
+    if (!latestPhoto.equals("")) {
+      bitmap = loadImage(latestPhoto);
       if (bitmap != null) {
         imageView.setImageBitmap(bitmap);
       }

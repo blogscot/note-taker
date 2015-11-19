@@ -45,7 +45,7 @@ public class NoteHandler {
   }
 
   // Returns the full path audio filename at the given index
-  // Index numbers range 1, 2, 3 ...
+  // Or an empty string if the format or index parameters are invalid
   public String getMediaFilename(NoteFormat format, int index) {
     List<String> list = null;
 
@@ -61,10 +61,14 @@ public class NoteHandler {
         break;
     }
 
-    if (list != null && index < list.size()) {
+    if (list != null && index < list.size() && index >= 0) {
       return fullPath + "/" + list.get(index);
     }
     return "";
+  }
+
+  public String getLatestPhotoNote() {
+    return getMediaFilename(NoteFormat.Photo, photoNotes.size() - 1);
   }
 
   // Returns the next suffix in the sequence 01, 02, 03 etc.
