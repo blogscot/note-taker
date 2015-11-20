@@ -23,7 +23,7 @@ public class AudioFilesActivity extends AppCompatActivity
   private MediaPlayer mediaPlayer;
 
   notesAdapter myAdapter;
-  NoteHandler noteHandler;
+  AudioNote noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,10 @@ public class AudioFilesActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     // Audio files are stored in application internal storage
-    noteHandler = new NoteHandler(getFilesDir());
+    noteHandler = new AudioNote(getFilesDir());
     listView = (ListView) findViewById(R.id.listView);
 
-    List<String> audioFilenames = noteHandler.getAudioFilenames();
+    List<String> audioFilenames = noteHandler.getNoteFilenames();
     myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, audioFilenames);
     listView.setAdapter(myAdapter);
 
@@ -53,14 +53,14 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    Log.d(TAG, noteHandler.getMediaFilename(NoteFormat.Audio, position));
+    Log.d(TAG, noteHandler.getMediaFilename(position));
     startPlaying(position);
   }
 
   private void startPlaying(int index) {
     try {
       mediaPlayer = new MediaPlayer();
-      mediaFilename = noteHandler.getMediaFilename(NoteFormat.Audio, index);
+      mediaFilename = noteHandler.getMediaFilename(index);
       mediaPlayer.setDataSource(mediaFilename);
       mediaPlayer.setOnCompletionListener(this);
 
@@ -85,7 +85,7 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    noteHandler.removeAudioFileFromList(position);
+    noteHandler.removeNoteFromList(position);
     myAdapter.notifyDataSetChanged();
     return true;
   }

@@ -16,7 +16,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
   public static final java.lang.String FILENAME_KEY = "TEXTNOTE_KEY";
   private ListView listView;
   private Button addButton;
-  private NoteHandler noteHandler;
+  private TextNote noteHandler;
   private notesAdapter myAdapter;
 
   @Override
@@ -27,11 +27,11 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new NoteHandler(getFilesDir());
+    noteHandler = new TextNote(getFilesDir());
     listView = (ListView) findViewById(R.id.textNotesListView);
     addButton = (Button) findViewById(R.id.addButton);
 
-    List<String> textNotes = noteHandler.getTextNotes();
+    List<String> textNotes = noteHandler.getNoteFilenames();
     myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, textNotes);
     listView.setAdapter(myAdapter);
 
@@ -51,7 +51,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    String filename = noteHandler.getMediaFilename(NoteFormat.Text, position);
+    String filename = noteHandler.getMediaFilename(position);
     Intent intent = new Intent(this, TextFilesActivity.class);
     intent.putExtra(FILENAME_KEY, filename);
     startActivity(intent);
@@ -59,7 +59,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
 
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    noteHandler.removeTextNoteFromList(position);
+    noteHandler.removeNoteFromList(position);
     myAdapter.notifyDataSetChanged();
     return true;
   }
