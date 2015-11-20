@@ -26,7 +26,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
   private ImageView imageView;
   private Bitmap bitmap;
   private File internalStorage;
-  private NoteHandler noteHandler;
+  private CameraNote noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
     // image files are stored in the application's internal storage
     internalStorage = getFilesDir();
-    noteHandler = new NoteHandler(getFilesDir());
+    noteHandler = new CameraNote(getFilesDir());
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
     Button galleryButton = (Button) findViewById(R.id.galleryButton);
     imageView = (ImageView) findViewById(R.id.cameraImageView);
@@ -46,8 +46,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     galleryButton.setOnClickListener(this);
 
     // display the most recent photo
-    noteHandler.initialiseNotes(NoteFormat.Photo);
-    String latestPhoto = noteHandler.getLatestPhotoNote();
+    noteHandler.initialiseNotes();
+    String latestPhoto = noteHandler.getLastNoteFilename();
     Log.d("Most recent photo :", latestPhoto);
 
     if (!latestPhoto.equals("")) {
@@ -83,7 +83,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         bitmap = (Bitmap) extras.get("data");
         imageView.setImageBitmap(bitmap);
 
-        storeImage(bitmap, noteHandler.getNextCameraNoteFilename());
+        storeImage(bitmap, noteHandler.getNextNoteFilename());
         Toast.makeText(this, "Image file saved", Toast.LENGTH_LONG).show();
       }
     }

@@ -14,7 +14,7 @@ import java.util.List;
 public class PhotosActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
   private ListView listView;
-  private NoteHandler noteHandler;
+  private CameraNote noteHandler;
   private notesAdapter myAdapter;
 
   @Override
@@ -25,10 +25,10 @@ public class PhotosActivity extends AppCompatActivity implements AdapterView.OnI
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new NoteHandler(getFilesDir());
+    noteHandler = new CameraNote(getFilesDir());
     listView = (ListView) findViewById(R.id.photosListView);
 
-    List<String> photoNotes = noteHandler.getPhotoNotes();
+    List<String> photoNotes = noteHandler.getNoteFilenames();
     myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, photoNotes);
     listView.setAdapter(myAdapter);
 
@@ -37,7 +37,7 @@ public class PhotosActivity extends AppCompatActivity implements AdapterView.OnI
 
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    noteHandler.removePhotoNoteFromList(position);
+    noteHandler.removeNoteFromList(position);
     myAdapter.notifyDataSetChanged();
     return true;
   }
