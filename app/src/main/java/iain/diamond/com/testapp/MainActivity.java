@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private static String mediaFileName;
   private MediaRecorder mediaRecorder;
-  private MediaPlayer mediaPlayer;
   private AudioNote noteHandler;
 
   File fileStorage;
@@ -130,11 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     if (mediaRecorder != null) {
       mediaRecorder.release();
       mediaRecorder = null;
-    }
-
-    if (mediaPlayer != null) {
-      mediaPlayer.release();
-      mediaPlayer = null;
     }
   }
 }

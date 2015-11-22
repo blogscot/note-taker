@@ -71,6 +71,15 @@ public class AudioFilesActivity extends AppCompatActivity
     }
   }
 
+  @Override
+  public void onPause() {
+    super.onPause();
+    if (mediaPlayer != null) {
+      mediaPlayer.release();
+      mediaPlayer = null;
+    }
+  }
+
   private void stopPlaying() {
     mediaPlayer.stop();
     mediaPlayer.release();
