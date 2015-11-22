@@ -17,7 +17,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
   public static final java.lang.String FILENAME_KEY = "TEXTNOTE_KEY";
   private ListView listView;
   private Button addButton;
-  private TextNote noteHandler;
+  private Note noteHandler;
   private notesAdapter myAdapter;
 
   @Override
@@ -28,7 +28,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new TextNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "NOTE", ".txt");
     listView = (ListView) findViewById(R.id.textNotesListView);
     addButton = (Button) findViewById(R.id.addButton);
 

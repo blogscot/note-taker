@@ -27,7 +27,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
   private ImageView imageView;
   private Bitmap bitmap;
   private File internalStorage;
-  private CameraNote noteHandler;
+  private Note noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
     // image files are stored in the application's internal storage
     internalStorage = getFilesDir();
-    noteHandler = new CameraNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
     Button galleryButton = (Button) findViewById(R.id.galleryButton);
     imageView = (ImageView) findViewById(R.id.cameraImageView);

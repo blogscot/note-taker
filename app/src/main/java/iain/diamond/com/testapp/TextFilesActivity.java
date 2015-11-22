@@ -23,7 +23,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
   private static android.os.Handler handler;
   private String filename;
   private final static String BUNDLE_KEY = "file-text";
-  private TextNote noteHandler;
+  private Note noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    noteHandler = new TextNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "NOTE", ".txt");
 
     final EditText editText = (EditText) findViewById(R.id.editText);
     Button saveButton = (Button) findViewById(R.id.saveButton);

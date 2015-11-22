@@ -15,7 +15,7 @@ import java.util.List;
 public class PhotosActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
 
   private ListView listView;
-  private CameraNote noteHandler;
+  private Note noteHandler;
   private notesAdapter myAdapter;
 
   @Override
@@ -26,7 +26,7 @@ public class PhotosActivity extends AppCompatActivity implements AdapterView.OnI
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new CameraNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
     listView = (ListView) findViewById(R.id.photosListView);
 
     List<String> photoNotes = noteHandler.getNoteFilenames();

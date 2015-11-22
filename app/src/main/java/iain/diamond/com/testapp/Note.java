@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Note {
+public class Note {
 
   private File internalStorage;
   protected String fullPath;
@@ -18,12 +18,16 @@ public abstract class Note {
 
   // The Note Handler is initialised with the internal storage location
   // accessible by the current activity.
-  public Note(File directory) {
+  // Files are saved using the pattern prefix + { index } + extension
+  public Note(File directory, String prefix, String extension) {
     internalStorage = directory;
 
     if (directory == null) {
       throw new IllegalArgumentException("Invalid directory specified.");
     }
+    this.prefix = prefix;
+    this.extension = extension;
+    this.pattern = "^" + prefix +"(\\d{2}).*";
     fullPath = directory.getAbsolutePath();
   }
 

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private static String mediaFileName;
   private MediaRecorder mediaRecorder;
-  private AudioNote noteHandler;
+  private Note noteHandler;
 
   File fileStorage;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // Audio files are stored in internal storage
     fileStorage = getFilesDir();
-    noteHandler = new AudioNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "VOICE", ".3gpp");
 
     writeButton = (Button) findViewById(R.id.buttonWrite);
     recordButton = (Button) findViewById(R.id.buttonRecord);

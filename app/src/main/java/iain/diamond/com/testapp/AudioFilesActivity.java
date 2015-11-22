@@ -23,7 +23,7 @@ public class AudioFilesActivity extends AppCompatActivity
   private MediaPlayer mediaPlayer;
 
   notesAdapter myAdapter;
-  AudioNote noteHandler;
+  Note noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class AudioFilesActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     // Audio files are stored in application internal storage
-    noteHandler = new AudioNote(getFilesDir());
+    noteHandler = new Note(getFilesDir(), "VOICE", ".3gpp");
     listView = (ListView) findViewById(R.id.listView);
 
     List<String> audioFilenames = noteHandler.getNoteFilenames();
