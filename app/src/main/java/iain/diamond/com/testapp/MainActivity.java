@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     recordButton.setOnClickListener(this);
     shootButton.setOnClickListener(this);
     audioDir.setOnClickListener(this);
-
   }
 
   @Override
