@@ -56,6 +56,14 @@ public class Note {
     return notes;
   }
 
+  public List<String> getFullPathNoteFilenames() {
+    List<String> fullPathNotes = new ArrayList<>();
+    for (String note : notes) {
+      fullPathNotes.add(fullPath + "/" + note);
+    }
+    return fullPathNotes;
+  }
+
   // Returns the full path note filename at the given index
   // Or an empty string if the index parameters are invalid
   public String getMediaFilename(int index) {

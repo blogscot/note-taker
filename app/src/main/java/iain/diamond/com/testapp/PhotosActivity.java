@@ -1,20 +1,16 @@
 package iain.diamond.com.testapp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import java.util.List;
 
-public class PhotosActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener {
+public class PhotosActivity extends AppCompatActivity {
 
-  private ListView listView;
+  private GridView gridView;
   private Note noteHandler;
   private notesAdapter myAdapter;
 
@@ -27,13 +23,12 @@ public class PhotosActivity extends AppCompatActivity implements AdapterView.OnI
 
     // Text files are stored in the application's internal storage
     noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
-    listView = (ListView) findViewById(R.id.photosListView);
+//    listView = (ListView) findViewById(R.id.photosListView);
+    gridView = (GridView) findViewById(R.id.gridView);
 
-    List<String> photoNotes = noteHandler.getNoteFilenames();
-    myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, photoNotes);
-    listView.setAdapter(myAdapter);
-
-    listView.setOnItemLongClickListener(this);
+    noteHandler.initialiseNotes();
+    List<String> photoNotes = noteHandler.getFullPathNoteFilenames();
+    gridView.setAdapter(new ImageAdaptor(this, photoNotes));
   }
 
   @Override
@@ -43,10 +38,10 @@ public class PhotosActivity extends AppCompatActivity implements AdapterView.OnI
     return true;
   }
 
-  @Override
-  public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    noteHandler.removeNoteFromList(position);
-    myAdapter.notifyDataSetChanged();
-    return true;
-  }
+//  @Override
+//  public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+//    noteHandler.removeNoteFromList(position);
+//    myAdapter.notifyDataSetChanged();
+//    return true;
+//  }
 }
