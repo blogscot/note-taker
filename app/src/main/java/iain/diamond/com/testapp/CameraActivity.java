@@ -109,6 +109,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
       FileOutputStream fos = new FileOutputStream(pictureFile);
       image.compress(Bitmap.CompressFormat.PNG, 90, fos);
       fos.close();
+      noteHandler.updateNotes();
     } catch (FileNotFoundException e) {
       Log.d(TAG, "File not found: " + e.getMessage());
     } catch (IOException e) {
