@@ -1,5 +1,7 @@
 package iain.diamond.com.testapp;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +17,7 @@ public class Note {
   protected String prefix;
   protected String pattern;
   protected List<String> notes = new ArrayList<>();
+  private List<String> fullPathNotes = new ArrayList<>();
 
   // The Note Handler is initialised with the internal storage location
   // accessible by the current activity.
@@ -29,10 +32,14 @@ public class Note {
     this.extension = extension;
     this.pattern = "^" + prefix +"(\\d{2}).*";
     fullPath = directory.getAbsolutePath();
+
+    // initialise the note list with the current directory contents
+    initialiseNotes();
   }
 
-  public void initialiseNotes() {
+  private void initialiseNotes() {
     updateNotes();
+    buildFullPathNoteFilenames();
   }
 
   // Generates the next note filename according to the current
@@ -51,21 +58,30 @@ public class Note {
 
   // Updates and returns a reference to the note array list
   protected List<String> getNoteFilenames() {
-    updateNotes();
-    reverseSort(notes);
     return notes;
   }
 
   public List<String> getFullPathNoteFilenames() {
-    List<String> fullPathNotes = new ArrayList<>();
-    for (String note : notes) {
-      fullPathNotes.add(fullPath + "/" + note);
-    }
     return fullPathNotes;
   }
 
-  // Returns the full path note filename at the given index
-  // Or an empty string if the index parameters are invalid
+  public void buildFullPathNoteFilenames() {
+    String filename;
+    fullPathNotes.clear();
+    for (String note : notes) {
+      filename = fullPath + "/" + note;
+      fullPathNotes.add(filename);
+    }
+    reverseSort(fullPathNotes);
+    Log.d("FULLPATH: ", ""+fullPathNotes.size());
+  }
+
+  /**
+   * Returns the full path note filename at the given index
+   * @param index
+   * @return the full path filename for the note
+   *         or an empty string if the index parameters are invalid
+   */
   public String getMediaFilename(int index) {
     if (index < notes.size() && index >= 0) {
       return fullPath + "/" + notes.get(index);
@@ -74,6 +90,11 @@ public class Note {
   }
 
   // Returns the last note in the array list
+  // TODO Fix this
+  // This was supposed to get the most recent photo image, assuming that it would
+  // be the last in the list. Alas, because of how Stable arrays work new list entries
+  // are sometime placed in the gaps left after deleting entries.
+  // A solution to this may be to use a Hashmap <Int, String> instead.
   public String getLastNoteFilename() {
     return getMediaFilename(notes.size() - 1);
   }
@@ -127,5 +148,6 @@ public class Note {
     if (filename.delete()) {
       notes.remove(position);
     }
+    buildFullPathNoteFilenames();
   }
 }

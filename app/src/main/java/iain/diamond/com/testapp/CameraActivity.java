@@ -47,7 +47,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     galleryButton.setOnClickListener(this);
 
     // display the most recent photo
-    noteHandler.initialiseNotes();
     String latestPhoto = noteHandler.getLastNoteFilename();
     Log.d("Most recent photo :", latestPhoto);
 

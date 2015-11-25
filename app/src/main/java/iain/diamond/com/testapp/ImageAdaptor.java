@@ -34,12 +34,12 @@ public class ImageAdaptor extends BaseAdapter {
 
   @Override
   public Object getItem(int position) {
-    return null;
+    return images.get(position);
   }
 
   @Override
   public long getItemId(int position) {
-    return 0;
+    return position;
   }
 
   @Override
@@ -54,7 +54,7 @@ public class ImageAdaptor extends BaseAdapter {
     } else {
       imageView = (ImageView) convertView;
     }
-    imageView.setImageBitmap(images.get(position));
+    imageView.setImageBitmap((Bitmap)getItem(position));
     return imageView;
   }
 }
