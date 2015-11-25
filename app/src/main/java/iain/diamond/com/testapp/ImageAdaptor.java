@@ -54,7 +54,7 @@ public class ImageAdaptor extends BaseAdapter {
     } else {
       imageView = (ImageView) convertView;
     }
-    imageView.setImageBitmap((Bitmap)getItem(position));
+    imageView.setImageBitmap(images.get(position));
     return imageView;
   }
 }

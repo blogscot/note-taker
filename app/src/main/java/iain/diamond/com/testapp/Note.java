@@ -72,8 +72,6 @@ public class Note {
       filename = fullPath + "/" + note;
       fullPathNotes.add(filename);
     }
-    reverseSort(fullPathNotes);
-    Log.d("FULLPATH: ", ""+fullPathNotes.size());
   }
 
   /**
