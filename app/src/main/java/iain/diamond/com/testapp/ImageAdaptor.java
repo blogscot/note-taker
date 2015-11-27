@@ -45,26 +45,23 @@ public class ImageAdaptor extends BaseAdapter {
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     ImageView imageView;
-    Bitmap bitmap = images.get(position);
+    Bitmap imageBitmap = images.get(position);
     final int THUMBNAIL_SIZE = 330;
 
     if (convertView == null) {
       // if it's not recycled, initialize some attributes
       imageView = new ImageView(context);
-//      imageView.setPadding(4, 4, 4, 4);
-
+      Float width = new Float(imageBitmap.getWidth());
+      Float height = new Float(imageBitmap.getHeight());
+      Float ratio = width / height;
+      imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
+              THUMBNAIL_SIZE, false);
+      imageView.setImageBitmap(imageBitmap);
 
     } else {
       imageView = (ImageView) convertView;
     }
-    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    Float width = new Float(bitmap.getWidth());
-    Float height = new Float(bitmap.getHeight());
-    Float ratio = width / height;
-    bitmap = Bitmap.createScaledBitmap(bitmap, (int) (THUMBNAIL_SIZE * ratio),
-            THUMBNAIL_SIZE, false);
 
-    imageView.setImageBitmap(bitmap);
     return imageView;
   }
 }

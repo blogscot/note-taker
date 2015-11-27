@@ -19,7 +19,7 @@ public class PhotosActivity extends AppCompatActivity
   private GridView gridView;
   private Note noteHandler;
   private ImageAdaptor myAdapter;
-  private List<String> photoNotes;
+  private static List<String> photoNotes;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,11 @@ public class PhotosActivity extends AppCompatActivity
 
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
-    Log.d("onItemLongClick: ", noteHandler.getMediaFilename(position));
-    // TODO This deletes the file okay, but the grid view isn't updated
     noteHandler.removeNoteFromList(position);
-    myAdapter.notifyDataSetChanged();
-    gridView.invalidateViews();
+    // Force the gridView to redraw
+    gridView.setAdapter(new ImageAdaptor(this, noteHandler.getFullPathNoteFilenames()));
+//    myAdapter.notifyDataSetChanged();
+//    gridView.invalidateViews();
     return true;
   }
 }
