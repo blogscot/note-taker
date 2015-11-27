@@ -51,7 +51,6 @@ public class PhotosActivity extends AppCompatActivity
     Intent intent = new Intent(this, SinglePhotoActivity.class);
     intent.putExtra(PHOTO_KEY, position);
     startActivity(intent);
-
   }
 
   @Override
