@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -27,6 +28,8 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_draw);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
     drawView = (DrawingView) findViewById(R.id.drawing);
     Button clearButton = (Button) findViewById(R.id.clearButton);

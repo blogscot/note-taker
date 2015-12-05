@@ -84,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       case R.id.buttonRecord:
         if (!isPlaying) {
           recordButton.setText("Stop");
-          startRecording();
+          // The user may need to enable audio recording permissions
+          try {
+            startRecording();
+          } catch (RuntimeException re) {
+            Toast.makeText(this,"Please enable audio recording permissions.", Toast.LENGTH_LONG).show();
+          }
         } else  {
           recordButton.setText("Record");
           stopRecording();
