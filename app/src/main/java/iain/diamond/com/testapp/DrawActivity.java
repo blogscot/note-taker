@@ -23,6 +23,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
 
   private static Handler hander;
   private DrawingView drawView;
+  private Note noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     setContentView(R.layout.activity_draw);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+
+    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
 
     drawView = (DrawingView) findViewById(R.id.drawing);
     Button clearButton = (Button) findViewById(R.id.clearButton);
@@ -40,7 +43,8 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     hander = new Handler() {
       @Override
       public void handleMessage(Message msg) {
-        Toast.makeText(DrawActivity.this, "Drawing saved.", Toast.LENGTH_LONG).show();
+        Toast.makeText(DrawActivity.this, "Drawing saved", Toast.LENGTH_LONG).show();
+        finish();
       }
     };
   }
@@ -61,13 +65,13 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
         break;
       case R.id.saveButton:
         drawView.setDrawingCacheEnabled(true);
-        String imageFilename = "IMAGE123.png";
-        storeImage(drawView.getDrawingCache(), getFilesDir() + "/" + imageFilename);
+        storeImage(drawView.getDrawingCache(), noteHandler.getNextNoteFilename());
         break;
     }
   }
 
-  // Stores a image bitmap to the full path specified by filename
+  // Stores a image bitmap to the internal storage location specified by filename
+  // This is relatively slow, so it occurs in a background thread.
   private void storeImage(final Bitmap image, final String filename) {
 
     Runnable storeInBackground = new Runnable() {
@@ -77,7 +81,6 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
         if (filename.equals("")) {
           throw new IllegalArgumentException("storeImage Error: Invalid filename given");
         }
-        Log.d(TAG, filename);
         File pictureFile = new File(filename);
         try {
           FileOutputStream fos = new FileOutputStream(pictureFile);

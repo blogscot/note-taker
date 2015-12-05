@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 
@@ -29,7 +28,6 @@ public class SinglePhotoActivity extends AppCompatActivity {
     int position = extras.getInt(PhotosActivity.PHOTO_KEY);
 
     String filename = noteHandler.getMediaFilename(position);
-    Log.d("PHOTO: ", ""+position+" : " + filename);
     Bitmap bitmap = loadImage(filename);
     if (bitmap != null) {
       imageView.setImageBitmap(bitmap);
@@ -45,8 +43,6 @@ public class SinglePhotoActivity extends AppCompatActivity {
 
   // loads a bitmap file, returns null if the path is invalid
   private Bitmap loadImage(String filename) {
-
-    Log.d("loadImage: ", ""+filename);
     return BitmapFactory.decodeFile(filename);
   }
 }

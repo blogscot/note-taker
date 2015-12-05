@@ -1,7 +1,6 @@
 package iain.diamond.com.testapp;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
