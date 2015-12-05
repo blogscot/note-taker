@@ -51,6 +51,11 @@
             android:label="@string/title_activity_single_photo"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".DrawActivity"
+            android:label="@string/title_activity_draw"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

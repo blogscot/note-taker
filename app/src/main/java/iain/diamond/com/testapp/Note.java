@@ -92,7 +92,8 @@ public class Note {
   // This was supposed to get the most recent photo image, assuming that it would
   // be the last in the list. Alas, because of how Stable arrays work new list entries
   // are sometime placed in the gaps left after deleting entries.
-  // A solution to this may be to use a Hashmap <Int, String> instead.
+  // A solution to this would be to store the most latest filename in a
+  // share preferences item.
   public String getLastNoteFilename() {
     return getMediaFilename(notes.size() - 1);
   }

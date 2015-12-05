@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private final String TAG = this.getClass().getSimpleName();
 
-  Button writeButton, recordButton, shootButton, audioDir;
+  Button writeButton, recordButton, drawButton, shootButton, audioDir;
 
   boolean isPlaying = false;
 
@@ -43,12 +43,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     writeButton = (Button) findViewById(R.id.buttonWrite);
     recordButton = (Button) findViewById(R.id.buttonRecord);
+    drawButton = (Button) findViewById(R.id.buttonDraw);
     shootButton = (Button) findViewById(R.id.buttonShoot);
 
     audioDir = (Button) findViewById(R.id.buttonList);
 
     writeButton.setOnClickListener(this);
     recordButton.setOnClickListener(this);
+    drawButton.setOnClickListener(this);
     shootButton.setOnClickListener(this);
     audioDir.setOnClickListener(this);
   }
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         break;
       case R.id.buttonWrite:
         startActivity(new Intent(this, TextFilesListActivity.class));
+        break;
+      case R.id.buttonDraw:
+        startActivity(new Intent(this, DrawActivity.class));
         break;
       case R.id.buttonShoot:
         startActivity(new Intent(this, CameraActivity.class));
