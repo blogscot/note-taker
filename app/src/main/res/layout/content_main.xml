@@ -65,7 +65,8 @@
         android:layout_height="wrap_content"
         android:text="@string/files_button"
         android:id="@+id/buttonList"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_above="@+id/buttonShoot"
+        android:layout_toEndOf="@+id/buttonRecord"
+        android:layout_marginStart="23dp"/>
 
 </RelativeLayout>
