@@ -86,7 +86,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
           FileInputStream fis = new FileInputStream(f);
           BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
           while ((line = reader.readLine()) != null) {
-            lines = lines + line;
+            lines = lines + line + "\n";
           }
         } catch (IOException e) {
           e.printStackTrace();
