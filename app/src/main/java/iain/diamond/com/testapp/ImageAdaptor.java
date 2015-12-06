@@ -46,22 +46,23 @@ public class ImageAdaptor extends BaseAdapter {
   public View getView(int position, View convertView, ViewGroup parent) {
     ImageView imageView;
     Bitmap imageBitmap = images.get(position);
-    final int THUMBNAIL_SIZE = 330;
 
+    // let's cycle memory if possible
     if (convertView == null) {
-      // if it's not recycled, initialize some attributes
       imageView = new ImageView(context);
-      Float width = new Float(imageBitmap.getWidth());
-      Float height = new Float(imageBitmap.getHeight());
-      Float ratio = width / height;
-      imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
-              THUMBNAIL_SIZE, false);
-      imageView.setImageBitmap(imageBitmap);
-
     } else {
       imageView = (ImageView) convertView;
     }
+    // Scale the images up
+    final int THUMBNAIL_SIZE = 330;
+    Float width = new Float(imageBitmap.getWidth());
+    Float height = new Float(imageBitmap.getHeight());
+    Float ratio = width / height;
+    imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
+            THUMBNAIL_SIZE, false);
 
+    // draw new image into recycled view
+    imageView.setImageBitmap(imageBitmap);
     return imageView;
   }
 }
