@@ -22,7 +22,7 @@ public class AudioFilesActivity extends AppCompatActivity
   private static String mediaFilename;
   private MediaPlayer mediaPlayer;
 
-  notesAdapter myAdapter;
+  NotesAdapter myAdapter;
   Note noteHandler;
 
   @Override
@@ -37,7 +37,7 @@ public class AudioFilesActivity extends AppCompatActivity
     listView = (ListView) findViewById(R.id.listView);
 
     List<String> audioFilenames = noteHandler.getNoteFilenames();
-    myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, audioFilenames);
+    myAdapter = new NotesAdapter(this, android.R.layout.simple_list_item_1, audioFilenames);
     listView.setAdapter(myAdapter);
 
     listView.setOnItemClickListener(this);

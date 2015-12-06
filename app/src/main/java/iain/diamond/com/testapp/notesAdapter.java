@@ -6,11 +6,11 @@ import android.widget.ArrayAdapter;
 import java.util.HashMap;
 import java.util.List;
 
-public class notesAdapter extends ArrayAdapter<String> {
+public class NotesAdapter extends ArrayAdapter<String> {
 
   HashMap<String, Integer> notesMap = new HashMap<>();
 
-  public notesAdapter(Context context, int resourceId, List<String> fileList) {
+  public NotesAdapter(Context context, int resourceId, List<String> fileList) {
     super(context, resourceId, fileList);
 
     for (int i = 0; i < fileList.size(); i++) {

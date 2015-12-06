@@ -18,7 +18,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
   private ListView listView;
   private Button addButton;
   private Note noteHandler;
-  private notesAdapter myAdapter;
+  private NotesAdapter myAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     addButton = (Button) findViewById(R.id.addButton);
 
     List<String> textNotes = noteHandler.getNoteFilenames();
-    myAdapter = new notesAdapter(this, android.R.layout.simple_list_item_1, textNotes);
+    myAdapter = new NotesAdapter(this, android.R.layout.simple_list_item_1, textNotes);
     listView.setAdapter(myAdapter);
 
     addButton.setOnClickListener(this);
