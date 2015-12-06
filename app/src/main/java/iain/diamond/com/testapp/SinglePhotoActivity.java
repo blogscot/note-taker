@@ -27,7 +27,7 @@ public class SinglePhotoActivity extends AppCompatActivity {
     Bundle extras = getIntent().getExtras();
     int position = extras.getInt(PhotosActivity.PHOTO_KEY);
 
-    String filename = noteHandler.getMediaFilename(position);
+    String filename = noteHandler.getNoteFilename(position);
     Bitmap bitmap = loadImage(filename);
     if (bitmap != null) {
       imageView.setImageBitmap(bitmap);
