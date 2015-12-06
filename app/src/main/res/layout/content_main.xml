@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/files_button"
-        android:id="@+id/buttonList"
+        android:id="@+id/recordingsButton"
         android:layout_above="@+id/buttonShoot"
         android:layout_toEndOf="@+id/buttonRecord"
         android:layout_marginStart="23dp"/>
@@ -75,6 +75,6 @@
         android:text="drawings"
         android:id="@+id/drawingsButton"
         android:layout_alignTop="@+id/buttonDraw"
-        android:layout_alignStart="@+id/buttonList"/>
+        android:layout_alignStart="@+id/recordingsButton"/>
 
 </RelativeLayout>
