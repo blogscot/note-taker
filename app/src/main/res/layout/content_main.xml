@@ -69,4 +69,12 @@
         android:layout_toEndOf="@+id/buttonRecord"
         android:layout_marginStart="23dp"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="drawings"
+        android:id="@+id/drawingsButton"
+        android:layout_alignTop="@+id/buttonDraw"
+        android:layout_alignStart="@+id/buttonList"/>
+
 </RelativeLayout>

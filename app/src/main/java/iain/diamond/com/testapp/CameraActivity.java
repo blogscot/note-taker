@@ -48,7 +48,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
 
     // display the most recent photo
     String latestPhoto = noteHandler.getLastNoteFilename();
-    Log.d("Most recent photo :", latestPhoto);
 
     if (!latestPhoto.equals("")) {
       bitmap = loadImage(latestPhoto);

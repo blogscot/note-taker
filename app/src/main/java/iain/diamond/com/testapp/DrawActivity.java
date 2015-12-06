@@ -32,7 +32,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
+    noteHandler = new Note(getFilesDir(), "DRAW", ".drw");
 
     drawView = (DrawingView) findViewById(R.id.drawing);
     Button clearButton = (Button) findViewById(R.id.clearButton);
@@ -87,7 +87,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
           image.compress(Bitmap.CompressFormat.PNG, 90, fos);
           fos.close();
           hander.sendEmptyMessage(0);
-//      noteHandler.updateNotes();
+          noteHandler.updateNotes();
         } catch (FileNotFoundException e) {
           Log.d(TAG, "File not found: " + e.getMessage());
         } catch (IOException e) {

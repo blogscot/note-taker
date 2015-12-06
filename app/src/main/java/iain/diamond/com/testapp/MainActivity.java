@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
   private final String TAG = this.getClass().getSimpleName();
 
-  Button writeButton, recordButton, drawButton, shootButton, audioDir;
+  Button writeButton, recordButton, drawButton, shootButton, recordings, drawingsButton;
 
   boolean isPlaying = false;
 
@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     drawButton = (Button) findViewById(R.id.buttonDraw);
     shootButton = (Button) findViewById(R.id.buttonShoot);
 
-    audioDir = (Button) findViewById(R.id.buttonList);
+    recordings = (Button) findViewById(R.id.buttonList);
+    drawingsButton = (Button) findViewById(R.id.drawingsButton);
 
     writeButton.setOnClickListener(this);
     recordButton.setOnClickListener(this);
     drawButton.setOnClickListener(this);
     shootButton.setOnClickListener(this);
-    audioDir.setOnClickListener(this);
+    recordings.setOnClickListener(this);
+    drawingsButton.setOnClickListener(this);
   }
 
   @Override
@@ -107,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         break;
       case R.id.buttonList:
         startActivity(new Intent(this, AudioFilesActivity.class));
+        break;
+      case R.id.drawingsButton:
+        startActivity(new Intent(this, DrawingsActivity.class));
         break;
     }
   }
