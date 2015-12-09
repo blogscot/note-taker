@@ -26,7 +26,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
   private final int CAMERA_DATA = 343;
   private ImageView imageView;
   private Bitmap bitmap;
-  private File internalStorage;
   private Note noteHandler;
 
   @Override
@@ -37,7 +36,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     setSupportActionBar(toolbar);
 
     // image files are stored in the application's internal storage
-    internalStorage = getFilesDir();
     noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
     Button galleryButton = (Button) findViewById(R.id.galleryButton);
@@ -47,7 +45,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     galleryButton.setOnClickListener(this);
 
     // display the most recent photo
-    String latestPhoto = noteHandler.getLastNoteFilename();
+    String latestPhoto = noteHandler.getMostRecentNote();
 
     if (!latestPhoto.equals("")) {
       bitmap = loadImage(latestPhoto);
@@ -95,7 +93,11 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     }
   }
 
-  // Stores a image bitmap to the full path specified by filename
+  /**
+   * Stores a image bitmap to the storage location specified by filename
+   * @param image       the bitmap image
+   * @param filename    the filename, including path
+   */
   private void storeImage(Bitmap image, String filename) {
 
     if (filename.equals("")) {
@@ -115,18 +117,12 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     }
   }
 
-  // loads a bitmap file, returns null if the path is invalid
+  /**
+   * Loads a bitmap file, returns null if the path is invalid
+   * @param filename  the bitmap file location
+   * @return  the bitmap image
+   */
   private Bitmap loadImage(String filename) {
     return BitmapFactory.decodeFile(filename);
-  }
-
-  // for debugging only
-  private void logImageFilenames() {
-    File[] files = internalStorage.listFiles();
-
-    for (File f : files) {
-      String filename = f.getName();
-      Log.d("logImageFilenames: ", filename);
-    }
   }
 }

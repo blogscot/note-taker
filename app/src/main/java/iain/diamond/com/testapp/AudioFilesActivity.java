@@ -22,8 +22,8 @@ public class AudioFilesActivity extends AppCompatActivity
   private static String mediaFilename;
   private MediaPlayer mediaPlayer;
 
-  NotesAdapter myAdapter;
-  Note noteHandler;
+  private NotesAdapter myAdapter;
+  private Note noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,10 @@ public class AudioFilesActivity extends AppCompatActivity
     startPlaying(position);
   }
 
+  /**
+   * Starts playing the audio file at the given index position.
+   * @param index   the position clicked by the user
+   */
   private void startPlaying(int index) {
     try {
       mediaPlayer = new MediaPlayer();
@@ -66,10 +70,13 @@ public class AudioFilesActivity extends AppCompatActivity
       mediaPlayer.prepare();
       mediaPlayer.start();
     } catch (IOException e) {
-      Log.e(TAG, "prepare() failed");
+      Log.e(TAG, "startPlaying failed");
     }
   }
 
+  /**
+   * Stops playing an audio file if the activity is paused.
+   */
   @Override
   public void onPause() {
     super.onPause();
@@ -79,17 +86,33 @@ public class AudioFilesActivity extends AppCompatActivity
     }
   }
 
+  /**
+   * Stops playing an audio file.
+   */
   private void stopPlaying() {
     mediaPlayer.stop();
     mediaPlayer.release();
   }
 
+  /**
+   * Tidies up resources when the audio playback is finished.
+   * @param mediaPlayer
+   */
   @Override
   public void onCompletion(MediaPlayer mediaPlayer) {
     mediaPlayer.stop();
     mediaPlayer.release();
   }
 
+  /**
+   * Removes a note at the position clicked by the user.
+   *
+   * @param adapterView   not used
+   * @param view          not used
+   * @param position      the item clicked
+   * @param l             not used
+   * @return
+   */
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
     noteHandler.removeNoteFromList(position);

@@ -129,7 +129,7 @@ public class Note {
   // are sometimes placed in the gaps left after deleting entries.
   // A solution to this would be to store the most latest filename in a
   // share preferences item.
-  public String getLastNoteFilename() {
+  public String getMostRecentNote() {
     return getNoteFilename(notes.size() - 1);
   }
 
