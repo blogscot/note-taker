@@ -122,15 +122,8 @@ public class Note {
    *
    * @return  the most recent note saved
    */
-  //
-  // TODO Fix this
-  // This was supposed to get the most recent photo image, assuming that it would
-  // be the last in the list. Alas, because of how Stable arrays work new list entries
-  // are sometimes placed in the gaps left after deleting entries.
-  // A solution to this would be to store the most latest filename in a
-  // share preferences item.
   public String getMostRecentNote() {
-    return getNoteFilename(notes.size() - 1);
+    return fullPath + "/" + prefix + pad2Digits("" + findMaxNoteIndex()) + extension;
   }
 
   /**
