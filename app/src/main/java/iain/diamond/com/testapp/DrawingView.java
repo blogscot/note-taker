@@ -11,6 +11,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * DrawingView is a custom view class which allows users to create simple drawing notes.
+ */
+
 public class DrawingView extends View {
 
   private Path drawPath;

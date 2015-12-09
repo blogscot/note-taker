@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +17,7 @@ public class PhotosActivity extends AppCompatActivity
   public final static String PHOTO_KEY = "photo-key";
   private GridView gridView;
   private Note noteHandler;
-  private ImageAdaptor myAdapter;
+  private ImageAdapter myAdapter;
   private static List<String> photoNotes;
 
   @Override
@@ -33,7 +32,7 @@ public class PhotosActivity extends AppCompatActivity
     gridView = (GridView) findViewById(R.id.gridView);
 
     photoNotes = noteHandler.getFullPathNoteFilenames();
-    myAdapter = new ImageAdaptor(this, photoNotes);
+    myAdapter = new ImageAdapter(this, photoNotes);
     gridView.setAdapter(myAdapter);
     gridView.setOnItemClickListener(this);
     gridView.setOnItemLongClickListener(this);
@@ -46,6 +45,11 @@ public class PhotosActivity extends AppCompatActivity
     return true;
   }
 
+  /**
+   * Displays the clicked photo in a new activity.
+   *
+   * @param position    the photo position clicked by the user.
+   */
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
     Intent intent = new Intent(this, SinglePhotoActivity.class);
@@ -53,13 +57,17 @@ public class PhotosActivity extends AppCompatActivity
     startActivity(intent);
   }
 
+  /**
+   * Removes a photo from the note list.
+   *
+   * @param position    the photo position clicked by the user.
+   * @return  true, the action has been handled
+   */
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
     noteHandler.removeNoteFromList(position);
     // Force the gridView to redraw
-    gridView.setAdapter(new ImageAdaptor(this, noteHandler.getFullPathNoteFilenames()));
-//    myAdapter.notifyDataSetChanged();
-//    gridView.invalidateViews();
+    gridView.setAdapter(new ImageAdapter(this, noteHandler.getFullPathNoteFilenames()));
     return true;
   }
 }

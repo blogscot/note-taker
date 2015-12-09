@@ -11,11 +11,15 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageAdaptor extends BaseAdapter {
+/**
+ * ImageAdapter provides an grid view adapter
+ */
+
+public class ImageAdapter extends BaseAdapter {
   private Context context;
   private ArrayList<Bitmap> images = new ArrayList<>();
 
-  public ImageAdaptor(Context context, List<String> imageFilenames) {
+  public ImageAdapter(Context context, List<String> imageFilenames) {
     this.context = context;
     loadImages(imageFilenames);
   }
@@ -55,14 +59,11 @@ public class ImageAdaptor extends BaseAdapter {
     }
     // Scale the images up
     final int THUMBNAIL_SIZE = 330;
-    Float width = new Float(imageBitmap.getWidth());
-    Float height = new Float(imageBitmap.getHeight());
-    Float ratio = width / height;
-    imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
-            THUMBNAIL_SIZE, false);
+    Float ratio = (float)imageBitmap.getWidth() / imageBitmap.getHeight();
 
     // draw new image into recycled view
-    imageView.setImageBitmap(imageBitmap);
+    imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap, (int)(THUMBNAIL_SIZE * ratio),
+            THUMBNAIL_SIZE, false));
     return imageView;
   }
 }

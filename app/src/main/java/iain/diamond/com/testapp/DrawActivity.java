@@ -70,8 +70,14 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     }
   }
 
-  // Stores a image bitmap to the internal storage location specified by filename
-  // This is relatively slow, so it occurs in a background thread.
+  /**
+   * Stores a image bitmap to the internal storage location specified by filename
+   * This is relatively slow, so it occurs in a background thread.
+   *
+   * @param image     the drawing bitmap image
+   * @param filename  the storage location
+   */
+
   private void storeImage(final Bitmap image, final String filename) {
 
     Runnable storeInBackground = new Runnable() {

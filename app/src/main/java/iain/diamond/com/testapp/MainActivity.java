@@ -15,19 +15,21 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Note Taker is an Android application that allows users to make notes in audio, textual,
+ * and visual forms, i.e. either photographs or user drawn notes.
+ *
+ * Audio recording is dealt with by the main activity.
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
   private final String TAG = this.getClass().getSimpleName();
 
-  Button writeButton, recordButton, drawButton, shootButton, recordingList, drawingList;
-
-  boolean isPlaying = false;
-
-  private static String mediaFileName;
+  private Button writeButton, recordButton, drawButton, shootButton, recordingList, drawingList;
+  private boolean isPlaying = false;
   private MediaRecorder mediaRecorder;
   private Note noteHandler;
-
-  File fileStorage;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     setSupportActionBar(toolbar);
 
     // Audio files are stored in internal storage
-    fileStorage = getFilesDir();
     noteHandler = new Note(getFilesDir(), "VOICE", ".3gpp");
 
     writeButton = (Button) findViewById(R.id.buttonWrite);
@@ -116,27 +117,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
   }
 
+  /**
+   * Starts recording user audio into an audio note file.
+   */
   private void startRecording() {
     mediaRecorder = new MediaRecorder();
     mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
     mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-    mediaFileName = noteHandler.getNextNoteFilename();
-    mediaRecorder.setOutputFile(mediaFileName);
+    mediaRecorder.setOutputFile(noteHandler.getNextNoteFilename());
     mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
     try {
       mediaRecorder.prepare();
     } catch (IOException e) {
-      Log.e(TAG, "prepare() failed");
+      Log.e(TAG, "startRecording failed");
     }
     mediaRecorder.start();
   }
 
+  /**
+   * Stops recording user audio.
+   */
   private void stopRecording() {
     mediaRecorder.stop();
     mediaRecorder.release();
   }
 
+  /**
+   * Stops recording audio if the activity is paused.
+   */
   @Override
   public void onPause() {
     super.onPause();

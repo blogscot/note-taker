@@ -57,6 +57,10 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     }
   }
 
+  /**
+   * Display the selected text file in its own view.
+   * @param position    the text file list position clicked
+   */
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
     String filename = noteHandler.getNoteFilename(position);
@@ -65,6 +69,12 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     startActivity(intent);
   }
 
+  /**
+   * Removed a text file from the notes list.
+   *
+   * @param position    the text file list position clicked
+   * @return  true - the action is finished
+   */
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
     noteHandler.removeNoteFromList(position);

@@ -33,12 +33,12 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     setSupportActionBar(toolbar);
 
     noteHandler = new Note(getFilesDir(), "NOTE", ".txt");
-
     final EditText editText = (EditText) findViewById(R.id.editText);
     Button saveButton = (Button) findViewById(R.id.saveButton);
 
     saveButton.setOnClickListener(this);
 
+    // update the view when file loading is complete
     handler = new android.os.Handler() {
       @Override
       public void handleMessage(Message msg) {
@@ -74,8 +74,13 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     }
   }
 
+  /**
+   * Loads a text from from the storage location specified by filename.
+   * Loading runs in a background thread.
+   *
+   * @param filename  the text file storage location
+   */
   private void loadTextFile(String filename) {
-
     final String f = filename;
 
     Runnable loadFile = new Runnable() {
@@ -103,8 +108,13 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     load.start();
   }
 
+  /**
+   * Saves a text file to the storage location specified by filename.
+   * Saving runs in a background thread.
+   *
+   * @param filename   the text file storage location.
+   */
   private void saveTextFile(String filename) {
-
     final String f = filename;
     Thread saveFile = new Thread(new Runnable() {
       @Override

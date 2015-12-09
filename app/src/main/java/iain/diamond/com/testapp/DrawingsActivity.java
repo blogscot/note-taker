@@ -17,7 +17,7 @@ public class DrawingsActivity extends AppCompatActivity
   public final static String DRAW_KEY = "draw-key";
   private GridView gridView;
   private Note noteHandler;
-  private ImageAdaptor myAdapter;
+  private ImageAdapter myAdapter;
   private static List<String> drawNotes;
 
   @Override
@@ -32,7 +32,7 @@ public class DrawingsActivity extends AppCompatActivity
     gridView = (GridView) findViewById(R.id.drawingsGridView);
 
     drawNotes = noteHandler.getFullPathNoteFilenames();
-    myAdapter = new ImageAdaptor(this, drawNotes);
+    myAdapter = new ImageAdapter(this, drawNotes);
     gridView.setAdapter(myAdapter);
     gridView.setOnItemClickListener(this);
     gridView.setOnItemLongClickListener(this);
@@ -45,6 +45,10 @@ public class DrawingsActivity extends AppCompatActivity
     return true;
   }
 
+  /**
+   * Displays the drawing bitmap image in a new activity.
+   * @param position      the drawing image position clicked by the user
+   */
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
     Intent intent = new Intent(this, SingleDrawingActivity.class);
@@ -52,11 +56,17 @@ public class DrawingsActivity extends AppCompatActivity
     startActivity(intent);
   }
 
+  /**
+   * Remove a image item from the grid view at the position the user clicked.
+   *
+   * @param position     the image position clicked by the user
+   * @return  true, the action has been handled
+   */
   @Override
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
     noteHandler.removeNoteFromList(position);
     // Force the gridView to redraw
-    gridView.setAdapter(new ImageAdaptor(this, noteHandler.getFullPathNoteFilenames()));
+    gridView.setAdapter(new ImageAdapter(this, noteHandler.getFullPathNoteFilenames()));
     return true;
   }
 }

@@ -41,7 +41,11 @@ public class SingleDrawingActivity extends AppCompatActivity {
     return true;
   }
 
-  // loads a bitmap file, returns null if the path is invalid
+  /**
+   * Loads a bitmap file, returns null if the path is invalid
+   * @param filename  the drawing storage location
+   * @return          the drawing bitmap
+   */
   private Bitmap loadImage(String filename) {
     return BitmapFactory.decodeFile(filename);
   }
