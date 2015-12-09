@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ImageAdapter is a customer grid view adapter
+ */
+
 public class ImageAdapter extends BaseAdapter {
   private Context context;
   private ArrayList<String> images;
@@ -40,7 +44,7 @@ public class ImageAdapter extends BaseAdapter {
     ImageView imageView;
     Bitmap imageBitmap = BitmapFactory.decodeFile(images.get(position));
 
-    // let's cycle memory if possible
+    // let's recycle memory if possible
     if (convertView == null) {
       imageView = new ImageView(context);
     } else {
@@ -52,7 +56,7 @@ public class ImageAdapter extends BaseAdapter {
     imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
             THUMBNAIL_SIZE, false);
 
-    // draw new image into recycled view
+    // draw thumbnail image into view
     imageView.setImageBitmap(imageBitmap);
     return imageView;
   }
