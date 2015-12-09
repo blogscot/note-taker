@@ -32,7 +32,8 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    noteHandler = new Note(getFilesDir(), "DRAW", ".drw");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.DrawNote);
 
     drawView = (DrawingView) findViewById(R.id.drawing);
     Button clearButton = (Button) findViewById(R.id.clearButton);

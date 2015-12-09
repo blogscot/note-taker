@@ -28,7 +28,8 @@ public class DrawingsActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new Note(getFilesDir(), "DRAW", ".drw");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.DrawNote);
     gridView = (GridView) findViewById(R.id.drawingsGridView);
 
     drawNotes = noteHandler.getFullPathNoteFilenames();

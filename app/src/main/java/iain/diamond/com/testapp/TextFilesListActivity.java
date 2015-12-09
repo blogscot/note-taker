@@ -28,7 +28,8 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new Note(getFilesDir(), "NOTE", ".txt");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.TextNote);
     listView = (ListView) findViewById(R.id.textNotesListView);
     addButton = (Button) findViewById(R.id.addButton);
 

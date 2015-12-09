@@ -32,7 +32,8 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    noteHandler = new Note(getFilesDir(), "NOTE", ".txt");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.TextNote);
     final EditText editText = (EditText) findViewById(R.id.editText);
     Button saveButton = (Button) findViewById(R.id.saveButton);
 

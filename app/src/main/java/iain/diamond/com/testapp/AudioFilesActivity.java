@@ -33,7 +33,8 @@ public class AudioFilesActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     // Audio files are stored in application internal storage
-    noteHandler = new Note(getFilesDir(), "VOICE", ".3gpp");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.AudioNote);
     listView = (ListView) findViewById(R.id.listView);
 
     List<String> audioFilenames = noteHandler.getNoteFilenames();

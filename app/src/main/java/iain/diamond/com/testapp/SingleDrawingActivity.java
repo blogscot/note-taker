@@ -21,7 +21,8 @@ public class SingleDrawingActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     imageView = (ImageView) findViewById(R.id.drawingImageView);
-    noteHandler = new Note(getFilesDir(), "DRAW", ".drw");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.DrawNote);
 
     // get image position (in the Note ArrayList) from the intent extras
     Bundle extras = getIntent().getExtras();

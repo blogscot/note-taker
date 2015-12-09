@@ -21,7 +21,8 @@ public class SinglePhotoActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
 
     imageView = (ImageView) findViewById(R.id.photoImageView);
-    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.PhotoNote);
 
     // get image position (in the Note ArrayList) from the intent extras
     Bundle extras = getIntent().getExtras();

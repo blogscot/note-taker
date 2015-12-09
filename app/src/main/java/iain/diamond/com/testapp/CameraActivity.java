@@ -36,7 +36,8 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
     setSupportActionBar(toolbar);
 
     // image files are stored in the application's internal storage
-    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.PhotoNote);
     Button cameraButton = (Button) findViewById(R.id.cameraButton);
     Button galleryButton = (Button) findViewById(R.id.galleryButton);
     imageView = (ImageView) findViewById(R.id.cameraImageView);

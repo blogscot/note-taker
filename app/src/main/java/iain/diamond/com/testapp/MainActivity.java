@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     setSupportActionBar(toolbar);
 
     // Audio files are stored in internal storage
-    noteHandler = new Note(getFilesDir(), "VOICE", ".3gpp");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.AudioNote);
 
     writeButton = (Button) findViewById(R.id.buttonWrite);
     recordButton = (Button) findViewById(R.id.buttonRecord);

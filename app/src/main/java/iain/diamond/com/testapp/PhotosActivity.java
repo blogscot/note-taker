@@ -28,7 +28,8 @@ public class PhotosActivity extends AppCompatActivity
     setSupportActionBar(toolbar);
 
     // Text files are stored in the application's internal storage
-    noteHandler = new Note(getFilesDir(), "IMAGE", ".png");
+    noteHandler = NoteFactory.getNoteFactory()
+            .getNoteHandler(getFilesDir(), NoteFactory.NoteType.PhotoNote);
     gridView = (GridView) findViewById(R.id.gridView);
 
     photoNotes = noteHandler.getFullPathNoteFilenames();

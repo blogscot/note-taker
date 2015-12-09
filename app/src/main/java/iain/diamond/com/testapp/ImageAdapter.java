@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ImageAdapter is a customer grid view adapter
+ * ImageAdapter is a custom grid view adapter
  */
 
 public class ImageAdapter extends BaseAdapter {
