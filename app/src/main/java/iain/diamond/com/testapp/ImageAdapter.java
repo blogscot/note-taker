@@ -11,24 +11,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ImageAdapter provides an grid view adapter
- */
-
 public class ImageAdapter extends BaseAdapter {
   private Context context;
-  private ArrayList<Bitmap> images = new ArrayList<>();
+  private ArrayList<String> images;
 
   public ImageAdapter(Context context, List<String> imageFilenames) {
     this.context = context;
-    loadImages(imageFilenames);
-  }
-
-  // Read in the bitmap images using the provided filenames
-  private void loadImages(List<String> imageFilenames) {
-    for (String filename : imageFilenames) {
-      images.add(BitmapFactory.decodeFile(filename));
-    }
+    images = new ArrayList<>(imageFilenames);
   }
 
   @Override
@@ -49,7 +38,7 @@ public class ImageAdapter extends BaseAdapter {
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     ImageView imageView;
-    Bitmap imageBitmap = images.get(position);
+    Bitmap imageBitmap = BitmapFactory.decodeFile(images.get(position));
 
     // let's cycle memory if possible
     if (convertView == null) {
@@ -60,10 +49,11 @@ public class ImageAdapter extends BaseAdapter {
     // Scale the images up
     final int THUMBNAIL_SIZE = 330;
     Float ratio = (float)imageBitmap.getWidth() / imageBitmap.getHeight();
+    imageBitmap = Bitmap.createScaledBitmap(imageBitmap, (int) (THUMBNAIL_SIZE * ratio),
+            THUMBNAIL_SIZE, false);
 
     // draw new image into recycled view
-    imageView.setImageBitmap(Bitmap.createScaledBitmap(imageBitmap, (int)(THUMBNAIL_SIZE * ratio),
-            THUMBNAIL_SIZE, false));
+    imageView.setImageBitmap(imageBitmap);
     return imageView;
   }
 }
