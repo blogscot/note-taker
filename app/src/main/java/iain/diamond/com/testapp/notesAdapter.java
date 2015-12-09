@@ -6,6 +6,10 @@ import android.widget.ArrayAdapter;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * NotesAdapter provides a simple custom list adaptor
+ */
+
 public class NotesAdapter extends ArrayAdapter<String> {
 
   HashMap<String, Integer> notesMap = new HashMap<>();

@@ -53,7 +53,6 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    Log.d(TAG, noteHandler.getNoteFilename(position));
     startPlaying(position);
   }
 
@@ -87,7 +86,6 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public void onCompletion(MediaPlayer mediaPlayer) {
-    Log.d(TAG, "Media Player has finished.");
     mediaPlayer.stop();
     mediaPlayer.release();
   }
