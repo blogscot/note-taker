@@ -39,6 +39,18 @@ public class ImageAdapter extends BaseAdapter {
     return position;
   }
 
+  /**
+   * Updates the image list.
+   *
+   * @param imageList  the updated image list
+   */
+  public void updateImageList(List<String> imageList) {
+    images.clear();
+    for (String image : imageList) {
+      images.add(image);
+    }
+  }
+
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     ImageView imageView;

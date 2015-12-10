@@ -67,7 +67,8 @@ public class DrawingsActivity extends AppCompatActivity
   public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
     noteHandler.removeNoteFromList(position);
     // Force the gridView to redraw
-    gridView.setAdapter(new ImageAdapter(this, noteHandler.getFullPathNoteFilenames()));
+    myAdapter.updateImageList(noteHandler.getFullPathNoteFilenames());
+    myAdapter.notifyDataSetChanged();
     return true;
   }
 }

@@ -21,7 +21,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
 
   private final String TAG = this.getClass().getSimpleName();
 
-  private static Handler hander;
+  private static Handler handler;
   private DrawingView drawView;
   private Note noteHandler;
 
@@ -41,7 +41,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
     clearButton.setOnClickListener(this);
     saveButton.setOnClickListener(this);
 
-    hander = new Handler() {
+    handler = new Handler() {
       @Override
       public void handleMessage(Message msg) {
         Toast.makeText(DrawActivity.this, "Drawing saved", Toast.LENGTH_LONG).show();
@@ -93,7 +93,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
           FileOutputStream fos = new FileOutputStream(pictureFile);
           image.compress(Bitmap.CompressFormat.PNG, 90, fos);
           fos.close();
-          hander.sendEmptyMessage(0);
+          handler.sendEmptyMessage(0);
           noteHandler.updateNotes();
         } catch (FileNotFoundException e) {
           Log.d(TAG, "File not found: " + e.getMessage());
