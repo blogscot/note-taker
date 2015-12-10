@@ -21,7 +21,8 @@
         android:contentDescription="@string/main_logo_description"
         android:id="@+id/imageView"
         android:background="@drawable/pencil_background"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/buttonShoot"/>
 
     <Button
         android:layout_width="wrap_content"

@@ -25,12 +25,18 @@ public class AudioFilesActivity extends AppCompatActivity
   private NotesAdapter myAdapter;
   private NoteHandler noteHandler;
 
+  private enum AudioState {Playing, Stopped}
+  private AudioState audioState;
+  private int savedPosition;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_audio_files);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
+
+    audioState = AudioState.Stopped;
 
     // Audio files are stored in application internal storage
     noteHandler = NoteFactory.getNoteFactory()
@@ -54,7 +60,17 @@ public class AudioFilesActivity extends AppCompatActivity
 
   @Override
   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-    startPlaying(position);
+    if (audioState == AudioState.Playing) {
+      // Has the user clicked on the playing file?
+      if (savedPosition == position) {
+        audioState = AudioState.Stopped;
+        stopPlaying();
+      }
+    } else {
+      audioState = AudioState.Playing;
+      startPlaying(position);
+      savedPosition = position;
+    }
   }
 
   /**
@@ -101,6 +117,7 @@ public class AudioFilesActivity extends AppCompatActivity
    */
   @Override
   public void onCompletion(MediaPlayer mediaPlayer) {
+    audioState = AudioState.Stopped;
     mediaPlayer.stop();
     mediaPlayer.release();
   }
@@ -108,10 +125,7 @@ public class AudioFilesActivity extends AppCompatActivity
   /**
    * Removes a note at the position clicked by the user.
    *
-   * @param adapterView   not used
-   * @param view          not used
    * @param position      the item clicked
-   * @param l             not used
    * @return
    */
   @Override

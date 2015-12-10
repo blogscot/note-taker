@@ -66,7 +66,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
         break;
       case R.id.saveButton:
         drawView.setDrawingCacheEnabled(true);
-        storeImage(drawView.getDrawingCache(), noteHandler.getNextNoteFilename());
+        storeImage(drawView.getDrawingCache(true), noteHandler.getNextNoteFilename());
         break;
     }
   }
