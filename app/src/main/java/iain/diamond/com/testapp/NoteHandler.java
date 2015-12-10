@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  *    Note, all files are stored in internal storage
  */
 
-public class Note {
+public class NoteHandler {
 
   private File internalStorage;
   private String fullPath;
@@ -38,7 +38,7 @@ public class Note {
    * @param extension   the standard file extension (e.g. ".txt")
    */
 
-  public Note(File directory, String prefix, String extension) {
+  public NoteHandler(File directory, String prefix, String extension) {
     internalStorage = directory;
 
     if (directory == null) {

@@ -23,7 +23,7 @@ public class TextFilesActivity extends AppCompatActivity implements View.OnClick
   private static android.os.Handler handler;
   private String filename;
   private final static String BUNDLE_KEY = "file-text";
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

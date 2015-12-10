@@ -26,7 +26,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
   private final int CAMERA_DATA = 343;
   private ImageView imageView;
   private Bitmap bitmap;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

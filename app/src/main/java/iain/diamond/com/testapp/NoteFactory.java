@@ -28,16 +28,16 @@ public class NoteFactory {
    * @param noteType    the note type, see enum NoteType
    * @return
    */
-  public Note getNoteHandler(File directory, NoteType noteType) {
+  public NoteHandler getNoteHandler(File directory, NoteType noteType) {
     switch (noteType) {
       case TextNote:
-        return new Note(directory, "TEXT", ".txt");
+        return new NoteHandler(directory, "TEXT", ".txt");
       case AudioNote:
-        return new Note(directory, "VOICE", ".3gpp");
+        return new NoteHandler(directory, "VOICE", ".3gpp");
       case PhotoNote:
-        return new Note(directory, "IMAGE", ".png");
+        return new NoteHandler(directory, "IMAGE", ".png");
       case DrawNote:
-        return new Note(directory, "DRAW", ".drw");
+        return new NoteHandler(directory, "DRAW", ".drw");
     }
     return null;
   }

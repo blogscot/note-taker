@@ -23,7 +23,7 @@ public class AudioFilesActivity extends AppCompatActivity
   private MediaPlayer mediaPlayer;
 
   private NotesAdapter myAdapter;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -16,7 +16,7 @@ public class DrawingsActivity extends AppCompatActivity
 
   public final static String DRAW_KEY = "draw-key";
   private GridView gridView;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
   private ImageAdapter myAdapter;
   private static List<String> drawNotes;
 

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private Button writeButton, recordButton, drawButton, shootButton, recordingList, drawingList;
   private boolean isPlaying = false;
   private MediaRecorder mediaRecorder;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ public class TextFilesListActivity extends AppCompatActivity implements View.OnC
   public static final java.lang.String FILENAME_KEY = "TEXTNOTE_KEY";
   private ListView listView;
   private Button addButton;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
   private NotesAdapter myAdapter;
 
   @Override

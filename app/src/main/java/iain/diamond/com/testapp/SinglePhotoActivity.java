@@ -11,7 +11,7 @@ import android.widget.ImageView;
 public class SinglePhotoActivity extends AppCompatActivity {
 
   private ImageView imageView;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ public class PhotosActivity extends AppCompatActivity
 
   public final static String PHOTO_KEY = "photo-key";
   private GridView gridView;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
   private ImageAdapter myAdapter;
   private static List<String> photoNotes;
 

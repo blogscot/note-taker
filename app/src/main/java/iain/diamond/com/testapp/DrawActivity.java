@@ -23,7 +23,7 @@ public class DrawActivity extends AppCompatActivity implements View.OnClickListe
 
   private static Handler handler;
   private DrawingView drawView;
-  private Note noteHandler;
+  private NoteHandler noteHandler;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
